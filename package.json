@@ -1,0 +1,21 @@
+{
+  "name": "recipe-planet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app",
+  "scripts": {
+    "start": "node ./app/api", 
+    "start:dev": "nodemon ./app/api" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdriVelazquez97/recipe-planet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdriVelazquez97/recipe-planet/issues"
+  },
+  "homepage": "https://github.com/AdriVelazquez97/recipe-planet#readme"
+}
