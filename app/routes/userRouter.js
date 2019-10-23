@@ -11,9 +11,9 @@ const {
 
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
+//router.get('/:id/recipes, ())
 router.post('/', createUser);
 router.put('/:id', updateUser);
-//router.detele()
 
 
 module.exports = router;
