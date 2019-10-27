@@ -5,13 +5,10 @@ const userSchema = new mongoose.Schema({
     // is not working good
     type: String,
     required: [true, 'Name is a required value']
-  },
-  surname: {
-    type: String,
-    default: ''
-  },
+  },  
   email: {
-    type: String
+    type: String,
+    unique: true,
   },
   password: {
     type: String,

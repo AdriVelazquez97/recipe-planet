@@ -23,7 +23,10 @@ mongoose.connect(config.mongoURL + config.mongoDBName)
 
 // ROUTING
 const apiRouter = require('./app/routes')
+const loginRouter = require('./app/routes/loginRouter')
+
 app.use('/api', apiRouter)
+app.use('/login', loginRouter)
 
 // Init server
 app.listen(config.port, (err) => {
