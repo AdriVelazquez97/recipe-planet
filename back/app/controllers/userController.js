@@ -1,7 +1,9 @@
 const User = require('../models/userModel')
 
 const getAllUsers = (req, res) => {
-  res.json('Route 1')  
+  User.find()
+    .then(response => res.json(response))
+    .catch(err => handdleError(err, res)) 
 }
 
 const getUserById = (req, res) => {
@@ -18,9 +20,7 @@ const createUser = (req, res) => {
         user: responde,
       })
     })
-    .catch(err => { 
-      res.json(err).status(400)
-    })
+    .catch(err => handdleError(err, res))
 }
 
 const updateUser = (req, res) => {
@@ -29,6 +29,10 @@ const updateUser = (req, res) => {
 
 const deleteUser = (req, res) => {
   res.json('Route 5')  
+}
+
+function handdleError(err, res) {
+  return res.status(400).json(err);
 }
 
 module.exports = {
