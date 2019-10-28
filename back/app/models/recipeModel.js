@@ -8,14 +8,14 @@ const recipeSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  ingredents: {
+  ingredents: [{
     type: Object,
-    foods: [{
+    food: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Food'
     }],
     text: String,
-  },
+  }],
   steps: {
     type: String,
   },
