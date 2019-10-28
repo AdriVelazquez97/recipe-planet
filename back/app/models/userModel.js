@@ -1,14 +1,17 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
+  // TODO Mongoose validationis a shit :)
   name: {
     type: String,
-    required: [true, 'Name is a required value']
+    required: [true, 'Name is a required value'],
+    // TODO
   },  
   email: {
     type: String,
-    unique: true,
-    //TODO
+    required: [true, 'Email is a required value'],
+    unique: true
+    // TODO
   },
   password: {
     type: String,
