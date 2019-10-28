@@ -1,40 +1,35 @@
 const User = require('../models/userModel')
 
 const getAllUsers = (req, res) => {
-  res.json('Route 1')  
+  User.find().lean().exec()
+    .then(users => res.json(users))
+    .catch(err => handdleError(err, res)) 
 }
 
 const getUserById = (req, res) => {
-  res.json('Route 2')
-}
-
-const createUser = (req, res) => {
-  const newUser = req.body
-  
-  User.create(newUser)
-    .then(responde => {
-      res.json({
-        msg: 'Created',
-        user: responde,
-      })
-    })
-    .catch(err => { 
-      res.json(err).status(400)
-    })
+  const userId = req.params.id
+  User.findById(userId)
+  .then(user => res.json(user))
+  .catch(err => handdleError(err, res)) 
 }
 
 const updateUser = (req, res) => {
-  res.json('Route 4')  
+  const userId = req.params.id
+  const userUpdated = req.body
+
+  User.findOneAndUpdate({_id: userId},
+    userUpdated,
+    {new: true})
+  .then(user => res.json(user))
+  .catch(err => handdleError(err, res)) 
 }
 
-const deleteUser = (req, res) => {
-  res.json('Route 5')  
+function handdleError(err, res) {
+  return res.status(400).json(err);
 }
 
 module.exports = {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
-  deleteUser
 }

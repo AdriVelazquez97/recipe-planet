@@ -23,7 +23,7 @@ mongoose.connect(config.mongoURL + config.mongoDBName)
 
 // ROUTING
 const apiRouter = require('./app/routes')
-app.use('/api', apiRouter)
+app.use('/api', apiRouter);
 
 // Init server
 app.listen(config.port, (err) => {
