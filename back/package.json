@@ -1,4 +1,3 @@
- 
 {
   "name": "reboot-back-example",
   "version": "1.0.0",
@@ -11,8 +10,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.3",
     "morgan": "^1.9.1"
   },
@@ -21,7 +22,9 @@
     "standard": "^14.3.1"
   },
   "standard": {
-    "plugins": [ "html" ],
+    "plugins": [
+      "html"
+    ],
     "parser": "babel-eslint"
   }
 }
