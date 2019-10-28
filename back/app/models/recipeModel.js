@@ -3,14 +3,19 @@ const mongoose = require('mongoose');
 const recipeSchema = new mongoose.Schema({
   name: {
     type: String,
+    required: [true, 'Name is required']
   },
   description: {
     type: String,
   },
-  aliments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Aliment'
-  }],
+  ingredents: {
+    type: Object,
+    foods: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Food'
+    }],
+    text: String,
+  },
   steps: {
     type: String,
   },
@@ -21,13 +26,13 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  saved: Boolean,
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   }],
   creation_date: {
     type: Date,
+    default: new Date(),
   },
 });
 
