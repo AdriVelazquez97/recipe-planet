@@ -2,41 +2,36 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
   name: {
-    // is not working good
     type: String,
     required: [true, 'Name is a required value']
-  },
-  surname: {
-    type: String,
-    default: ''
-  },
+  },  
   email: {
-    type: String
+    type: String,
+    unique: true,
+    //TODO
   },
   password: {
     type: String,
     required: [true, 'Password is a required value']
   },
-  isValidate: {
-    type: Boolean,
-    default: false
-  },
   img: {
-    type: String,
-    default: ''
+    type: String
   },
+  recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe',
+  }],
+  savedRecipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe',
+  }],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
   creation_date: {
-    // Should be Date
-    type: String,
-    default: '1234567890'
-  },
-  recipes: {
-    type: Array,
-    default: []
-  },
-  followers: {
-    type: Array,
-    default: []
+    type: Date,
+    default: new Date()
   },
 })
 
