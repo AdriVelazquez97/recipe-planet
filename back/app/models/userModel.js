@@ -14,26 +14,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is a required value']
   },
-  isValidate: {
-    type: Boolean,
-    default: false
-  },
   img: {
     type: String,
     default: ''
   },
+  recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe',
+  }],
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
   creation_date: {
-    // Should be Date
-    type: String,
-    default: '1234567890'
-  },
-  recipes: {
-    type: Array,
-    default: []
-  },
-  followers: {
-    type: Array,
-    default: []
+    type: Date,
   },
 })
 

@@ -7,26 +7,27 @@ const recipeSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  ingredients: {
-    type: String,
-  },
+  aliments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Aliment'
+  }],
   steps: {
     type: String,
   },
   img: {
     type: String,
   },
-  labels: {
-    type: Array,
-  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   saved: Boolean,
-  comments: String,
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
   creation_date: {
-    type: String,
+    type: Date,
   },
 });
 
