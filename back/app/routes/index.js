@@ -8,6 +8,6 @@ const authRouter = require('./authController');
 
 router.use('/auth', authRouter);
 router.use('/users', checkToken, userRouter);
-router.use('/recipe', checkToken, recipeRouter);
+router.use('/recipes', checkToken, recipeRouter);
 
 module.exports = router;
