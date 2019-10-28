@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const CommentSchema = require('../models/commentModel')
 
 const recipeSchema = new mongoose.Schema({
   name: {
@@ -26,10 +27,7 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
+  comments: [CommentSchema],
   creation_date: {
     type: Date,
     default: new Date(),
