@@ -1,27 +1,71 @@
+const _ = require('lodash')
 const User = require('../models/userModel')
 
 const getAllUsers = (req, res) => {
   User.find().lean().exec()
     .then(users => res.json(users))
-    .catch(err => handdleError(err, res)) 
+    .catch(err => handdleError(err, res))
 }
 
 const getUserById = (req, res) => {
   const userId = req.params.id
   User.findById(userId)
-  .then(user => res.json(user))
-  .catch(err => handdleError(err, res)) 
+    .then(user => res.json(user))
+    .catch(err => handdleError(err, res))
+}
+
+const getUserRecipesById = (req, res) => {
+  const userId = req.params.id
+  User.findById(userId)
+    .populate('recipes')
+    .then(user => res.json(user.recipes))
+    .catch(err => handdleError(err, res))
 }
 
 const updateUser = (req, res) => {
   const userId = req.params.id
   const userUpdated = req.body
 
-  User.findOneAndUpdate({_id: userId},
+  User.findOneAndUpdate({ _id: userId },
     userUpdated,
-    {new: true})
-  .then(user => res.json(user))
-  .catch(err => handdleError(err, res)) 
+    { new: true })
+    .then(user => res.json(user))
+    .catch(err => handdleError(err, res))
+}
+
+const updateUserRecipes = (req, res) => {
+  const userId = req.params.id;
+  const recipeId = req.body.recipe;
+
+  User.findById(userId)
+    .then(user => {
+      user.recipes.push(recipeId)
+      user.save()
+        .then(() => res.json({
+          msg: 'OK'
+        }))
+        .catch(err => handdleError(err, res))
+    })
+    .catch(err => handdleError(err, res))
+}
+
+const deleteUserRecipe = (req, res) => {
+  const userId = req.params.id;
+  const recipeId = req.params.recipeId;
+
+  User.findById(userId)
+    .then(user => {
+      user.recipes = user.recipes.filter(recipe => recipe != recipeId)
+      user.save()
+        .then(() => {
+          res.json({
+            msg: 'OK'
+          })
+
+        })
+        .catch(err => handdleError(err, res))
+    })
+    .catch(err => handdleError(err, res))
 }
 
 function handdleError(err, res) {
@@ -32,4 +76,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   updateUser,
+  getUserRecipesById,
+  updateUserRecipes,
+  deleteUserRecipe,
 }
