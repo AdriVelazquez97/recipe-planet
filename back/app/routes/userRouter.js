@@ -6,7 +6,9 @@ const {
   updateUser,
   getUserRecipesById,
   updateUserRecipes,
-  deleteUserRecipe
+  deleteUserRecipe,
+  searchWithFilters,
+  updateUserFollowing
 } = require('../controllers/userController')
 
 
@@ -16,9 +18,11 @@ router.get('/:id', getUserById);
 
 router.put('/:id', updateUser);
 router.put('/:id/recipes', updateUserRecipes);
+router.put('/:id/following', updateUserFollowing);
+
+router.post('/searchWithFilters', searchWithFilters)
 
 router.delete('/:id/recipes/:recipeId', deleteUserRecipe);
-//router.get('/:id/recipes, ())
 
 
 module.exports = router;

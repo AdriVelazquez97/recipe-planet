@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const User = require('../models/userModel')
+const { createQuerySearch } = require('../helper/index')
 
 const getAllUsers = (req, res) => {
   User.find().lean().exec()
@@ -22,6 +23,13 @@ const getUserRecipesById = (req, res) => {
     .catch(err => handdleError(err, res))
 }
 
+const searchWithFilters = (req, res) =>{
+  const querySearch = createQuerySearch(req.body.searchParams)
+  User.find(querySearch)
+    .then(response => res.json(response))
+    .catch(err => handdleError(res, err))
+}
+
 const updateUser = (req, res) => {
   const userId = req.params.id
   const userUpdated = req.body
@@ -40,6 +48,22 @@ const updateUserRecipes = (req, res) => {
   User.findById(userId)
     .then(user => {
       user.recipes.push(recipeId)
+      user.save()
+        .then(() => res.json({
+          msg: 'OK'
+        }))
+        .catch(err => handdleError(err, res))
+    })
+    .catch(err => handdleError(err, res))
+}
+
+const updateUserFollowing = (req, res) => {
+  const userId = req.params.id;
+  const followingId = req.body.following;
+
+  User.findById(userId)
+    .then(user => {
+      user.following.push(followingId)
       user.save()
         .then(() => res.json({
           msg: 'OK'
@@ -79,4 +103,6 @@ module.exports = {
   getUserRecipesById,
   updateUserRecipes,
   deleteUserRecipe,
+  searchWithFilters,
+  updateUserFollowing
 }
