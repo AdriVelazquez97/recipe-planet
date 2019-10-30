@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const User = require('../models/userModel')
+const Img = require('../models/imgModel')
 const { createQuerySearch } = require('../helper/index')
 
 const getAllUsers = (req, res) => {
@@ -73,6 +74,26 @@ const updateUserFollowing = (req, res) => {
     .catch(err => handdleError(err, res))
 }
 
+const updateUserImg = (req, res) => {
+  const file = req.file
+  const newImg = {
+    data: file.buffer,
+    contentType: file.originalname
+  };
+
+  Img.create(newImg)
+    .then(() => res.json({msg: 'ok'}))
+    .catch(err => handdleError(err)) 
+}
+
+const getImg = (req, res) => {
+  Img.findById(req.params.id)
+    .then(imgs => res.json(imgs))
+    .catch(err => handdleError(err, res))
+
+}
+
+
 const deleteUserRecipe = (req, res) => {
   const userId = req.params.id;
   const recipeId = req.params.recipeId;
@@ -104,5 +125,7 @@ module.exports = {
   updateUserRecipes,
   deleteUserRecipe,
   searchWithFilters,
-  updateUserFollowing
+  updateUserFollowing,
+  updateUserImg,
+  getImg
 }

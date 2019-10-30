@@ -30,12 +30,16 @@ const updateUserInfo = async (id, newData) => {
   return api.put(`users/${id}`, newData)
 }
 
+const getUserImg = async (id) => {
+  return api.get(`users/${id}/img`)
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
   const inputUserName = document.getElementById('userName')
   const divUserRecipes = document.getElementById('userRecipes')
   const inputUserFollowing = document.getElementById('userFollowing')
+  const imgUserImg = document.getElementById('userImg')
 
   const userDataNoParse = await getUserData()
   const userDataParse = userDataNoParse.data[0]
@@ -53,6 +57,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     divUserRecipes.appendChild(pTitle)
     divUserRecipes.appendChild(pDescription)
   });
+
+  const photo = await getUserImg('5dba0da0513b9c1d4f755eb6')
+
+  console.log(photo.data.data.data)
+  imgUserImg.setAttribute('src', `data:image/jpeg;base64,${photo.data.data.data}`)
 
   inputUserName.setAttribute('value', userDataParse.name)
   inputUserFollowing.innerHTML = userDataParse.following.length
