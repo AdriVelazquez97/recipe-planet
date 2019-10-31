@@ -24,7 +24,7 @@ router.get('/:id/img', getUserImg);
 router.put('/:id', updateUser);
 router.put('/:id/recipes', updateUserRecipes);
 router.put('/:id/following', updateUserFollowing);
-router.put('/:id/img', upload.single('img'), updateUserImg)
+router.put('/:id/image', upload.single('image'), updateUserImg)
 
 router.post('/searchWithFilters', searchWithFilters)
 

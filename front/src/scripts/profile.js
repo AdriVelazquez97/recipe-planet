@@ -1,4 +1,4 @@
-(function authenticated () {
+(function authenticated() {
   if (!localStorage.getItem('token')) {
     location.href = './index.html'
   }
@@ -7,7 +7,7 @@
 const api = axios.create({
   baseURL: "http://localhost:5000/api/",
   timeout: 1000,
-  headers:{
+  headers: {
     auth_token: localStorage.getItem('token')
   }
 });
@@ -17,13 +17,13 @@ const getUserData = async () => {
     searchParams: [{
       type: 'email',
       value: [localStorage.getItem('email')]
-      }]
+    }]
   }
   return api.post('users/searchWithFilters', requestBody)
 }
 
 const getUserRecipes = async (id) => {
-  return api.get(`users/${id}/recipes`,)
+  return api.get(`users/${id}/recipes`)
 }
 
 const updateUserInfo = async (id, newData) => {
@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const userDataParse = userDataNoParse.data[0]
 
   const userRecipes = await getUserRecipes(userDataParse._id)
-  console.log(userRecipes.data)
 
   userRecipes.data.forEach(recipe => {
     const pTitle = document.createElement('P');
@@ -58,14 +57,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     divUserRecipes.appendChild(pDescription)
   });
 
-  const photo = await getUserImg('5dba0da0513b9c1d4f755eb6')
-
-  console.log(photo.data.data.data)
-  imgUserImg.setAttribute('src', `data:image/jpeg;base64,${photo.data.data.data}`)
-
   inputUserName.setAttribute('value', userDataParse.name)
   inputUserFollowing.innerHTML = userDataParse.following.length
 
+  document.getElementById('btn-save-img').addEventListener('click', (event) => {
+
+    var myWidget = cloudinary.createUploadWidget({
+      cloudName: 'ddhio8g1j', 
+      uploadPreset: 'pgtjohuw'}, (error, result) => { 
+        if (!error && result && result.event === "success") { 
+          console.log('Done! Here is the image info: ', result.info); 
+        }
+      }
+    )
+
+    myWidget.open();
+ 
+  }, false)
 
   // this is the navigation
   document.getElementById('btn-home').addEventListener('click', (event) => {
@@ -89,12 +97,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const inputUserName = document.getElementById('userName')
     const btnEdit = document.getElementById('btn-edit')
 
-    if(inputUserName.hasAttribute('readonly')){
+    if (inputUserName.hasAttribute('readonly')) {
       inputUserName.removeAttribute('readonly')
       btnEdit.innerHTML = 'Save'
     } else {
       const newName = inputUserName.value
-      updateUserInfo(userDataParse._id,{name: newName})
+      updateUserInfo(userDataParse._id, { name: newName })
       inputUserName.setAttribute('readonly', '')
       btnEdit.innerHTML = 'Edit'
     }
