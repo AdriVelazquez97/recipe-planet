@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const multer = require('multer')
+const upload = multer()
 
 const {
   getAllUsers,
@@ -6,19 +8,27 @@ const {
   updateUser,
   getUserRecipesById,
   updateUserRecipes,
-  deleteUserRecipe
+  deleteUserRecipe,
+  searchWithFilters,
+  updateUserFollowing,
+  getUserImg,
+  updateUserImg
 } = require('../controllers/userController')
 
 
 router.get('/', getAllUsers);
 router.get('/:id/recipes', getUserRecipesById)
 router.get('/:id', getUserById);
+router.get('/:id/img', getUserImg);
 
 router.put('/:id', updateUser);
 router.put('/:id/recipes', updateUserRecipes);
+router.put('/:id/following', updateUserFollowing);
+router.put('/:id/image', upload.single('image'), updateUserImg)
+
+router.post('/searchWithFilters', searchWithFilters)
 
 router.delete('/:id/recipes/:recipeId', deleteUserRecipe);
-//router.get('/:id/recipes, ())
 
 
 module.exports = router;

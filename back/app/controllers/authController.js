@@ -28,17 +28,23 @@ function login (req, res) {
   UserModel
     .findOne({ email: req.body.userEmail })
     .then(user => {
-      if (!user) { return res.json({ error: 'wrong email' }) }
+      if (!user) {
+        return res.status(403).json({ error: 'wrong email' })
+      }
 
       bcrypt.compare(req.body.userPassword, user.password, (err, result) => {
-        if (!result) { return res.json({ error: `wrong password for ${req.body.userEmail}` }) }
+        if (!result) {
+          return res.status(403).json({
+            error: `wrong password for ${req.body.userEmail}`
+          })
+        }
 
         const userData = { username: user.name, email: user.email }
 
         const token = jwt.sign(
           userData,
           'secret', // TODO SECRET MORE SECRET PLEASE
-          { expiresIn: '1h' }
+          { expiresIn: '48h' }
         )
 
         return res.json({ token: token, ...userData })
@@ -46,6 +52,11 @@ function login (req, res) {
     })
     .catch(err => handdleError(err, res))
 }
+
+function handdleError(err, res) {
+  return res.status(400).json(err);
+}
+
 module.exports = {
   signup,
   login

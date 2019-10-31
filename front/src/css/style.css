@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.menu{
+.navbar{
   padding-left: 10px;
   height: 98vh;
   width: 78px;
@@ -41,4 +41,13 @@
   height: 75vh;
   width: 30%;
   border: 1px solid black;
+}
+
+.option-nav {
+  height: 55px;
+  width: 55px;
+  align-items: center;
+  border-radius: 50%;
+  background-color: brown;
+  color: aliceblue;
 }
