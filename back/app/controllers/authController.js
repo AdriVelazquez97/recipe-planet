@@ -44,7 +44,7 @@ function login (req, res) {
         const token = jwt.sign(
           userData,
           'secret', // TODO SECRET MORE SECRET PLEASE
-          { expiresIn: '1h' }
+          { expiresIn: '48h' }
         )
 
         return res.json({ token: token, ...userData })
@@ -52,6 +52,11 @@ function login (req, res) {
     })
     .catch(err => handdleError(err, res))
 }
+
+function handdleError(err, res) {
+  return res.status(400).json(err);
+}
+
 module.exports = {
   signup,
   login

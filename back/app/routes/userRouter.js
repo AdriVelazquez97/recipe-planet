@@ -11,15 +11,15 @@ const {
   deleteUserRecipe,
   searchWithFilters,
   updateUserFollowing,
-  updateUserImg,
-  getImg
+  getUserImg,
+  updateUserImg
 } = require('../controllers/userController')
 
 
 router.get('/', getAllUsers);
 router.get('/:id/recipes', getUserRecipesById)
 router.get('/:id', getUserById);
-router.get('/:id/img', getImg);
+router.get('/:id/img', getUserImg);
 
 router.put('/:id', updateUser);
 router.put('/:id/recipes', updateUserRecipes);

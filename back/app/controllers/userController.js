@@ -1,7 +1,15 @@
 const _ = require('lodash')
 const User = require('../models/userModel')
 const Img = require('../models/imgModel')
+const cloudinary = require('cloudinary')
 const { createQuerySearch } = require('../helper/index')
+
+cloudinary.config({ 
+  cloud_name: process.env.cloudinary_cloud_name ,
+  api_key: process.env.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_secret 
+});
+
 
 const getAllUsers = (req, res) => {
   User.find().lean().exec()
@@ -24,7 +32,7 @@ const getUserRecipesById = (req, res) => {
     .catch(err => handdleError(err, res))
 }
 
-const searchWithFilters = (req, res) =>{
+const searchWithFilters = (req, res) => {
   const querySearch = createQuerySearch(req.body.searchParams)
   User.find(querySearch)
     .then(response => res.json(response))
@@ -74,23 +82,42 @@ const updateUserFollowing = (req, res) => {
     .catch(err => handdleError(err, res))
 }
 
-const updateUserImg = (req, res) => {
-  const file = req.file
-  const newImg = {
-    data: file.buffer,
-    contentType: file.originalname
-  };
 
-  Img.create(newImg)
-    .then(() => res.json({msg: 'ok'}))
-    .catch(err => handdleError(err)) 
+const getUserImg = (req, res) => {
+  const { refImg } = req.params
+
+  Img.findOne({ idRef: refImg })
+    .then(img => res.json(img))
+    .catch(err => handdleError(err, res))
 }
 
-const getImg = (req, res) => {
-  Img.findById(req.params.id)
-    .then(imgs => res.json(imgs))
-    .catch(err => handdleError(err, res))
+const updateUserImg = (req, res) => {
+  const { refImg } = req.params
+  const { newImg } = req.body
 
+  // const fileBase64 = file.buffer.toString('base64')
+
+
+  cloudinary.v2.uploader.upload("front_face.png",
+    {
+      resource_type: "image", 
+      public_id: "pruebas"
+    },
+    function (error, result) { console.log(result, error) });
+
+  Img.create({ img: fileBase64 })
+    .then(img => {
+      User.findByIdAndUpdate()
+    })
+
+  Img.findByIdAndUpdate({ idRef: refImg })
+    .then(img => {
+      img.img = newImg
+      img.save()
+        .then(() => res.json({ msg: 'ok' }))
+        .catch(err => handdleError(err, res))
+    })
+    .catch(err => handdleError(err, res))
 }
 
 
@@ -126,6 +153,6 @@ module.exports = {
   deleteUserRecipe,
   searchWithFilters,
   updateUserFollowing,
-  updateUserImg,
-  getImg
+  getUserImg,
+  updateUserImg
 }

@@ -17,9 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is a required value']
   },
-  img: {
-    type: String
-  },
+  img: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Img',
+  }],
   recipes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe',
