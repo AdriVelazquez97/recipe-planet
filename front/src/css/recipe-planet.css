@@ -1,6 +1,7 @@
 #container{
   display: block;
-  margin-left: 80px;
+  margin-left: 90px;
+  margin-top: 10px;
 }
 
 #profilePage{
@@ -13,11 +14,15 @@
   height: 100vh;
   top:0;
   left: 0;
-  background-color: aqua;
+  background-color: blue;
  }
 
-#userImg{
-  width: 150px;
-  height: 150px;
-  border-radius: 125px;
+#img{
+  width: 200px;
+  height: 200px;
+  background-size:cover
+}
+
+#img:hover{
+  opacity: 0.5;
 }

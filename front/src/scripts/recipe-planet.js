@@ -54,13 +54,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inputUserName = document.getElementById('userName')
   const divUserRecipes = document.getElementById('userRecipes')
   const inputUserFollowing = document.getElementById('userFollowing')
-  const imgUserImg = document.getElementById('userImg')
-
+  
   const userDataNoParse = await getUserData()
   const userDataParse = userDataNoParse.data[0]
-
+  
+  
+  const imgUserImg = document.getElementById('img')
+  imgUserImg.style.backgroundImage = `url(${userDataParse.img})`
+  
   const userRecipes = await getUserRecipes(userDataParse._id)
-  imgUserImg.setAttribute('src', userDataParse.img)
   userRecipes.data.forEach(recipe => {
     createDivRecipe(recipe, divUserRecipes)
   });
@@ -68,16 +70,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   inputUserName.setAttribute('value', userDataParse.name)
   inputUserFollowing.innerHTML = userDataParse.following.length
 
-  document.getElementById('btn-save-img').addEventListener('click', (event) => {
+  imgUserImg.addEventListener('click', (event) => {
 
     var myWidget = cloudinary.createUploadWidget({
       cloudName: 'ddhio8g1j', 
       uploadPreset: 'pgtjohuw'}, (error, result) => { 
-        if (!error && result && result.event === "success") { 
-          // Continuar aqui, axios para actualizar la foto del usuario 
-          const newUrl = result.info.url
-          console.log(newUrl)
-          updateUserImg(userDataParse._id, newUrl)
+        if (!error && result && result.event === "success" ) {
+            const newUrl = result.info.url
+            updateUserImg(userDataParse._id, newUrl)
+            imgUserImg.style.backgroundImage = `url(${newUrl})`
+          
         }
       }
     )

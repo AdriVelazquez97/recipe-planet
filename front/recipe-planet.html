@@ -7,6 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="./src/css/recipe-planet.css">
   <link rel="stylesheet" href="">
+
 </head>
 <body>
   
@@ -18,10 +19,11 @@
   </div>
 
   <div id="container">
-    
+    <!-- This will show user's profile -->
     <div id="profilePage" style="display: none;">
-        <label for="">Img: </label>
+        
         <img id="userImg" alt="">
+        <div id="img"></div>
         <button id="btn-save-img"  type="button">Save IMG</button>
     
         <label for="">Name: </label>
@@ -35,17 +37,18 @@
         <button id="btn-edit"  type="button">Edit</button>
       </div>
     
+      <!-- This will show home page -->
       <div id="homePage">
         <p>Esta es la pagina del home</p>
       </div>
 
+      <!-- This will show following page -->
       <div id="followingPage" style="display: none;">
         <p>Esta es la pagina de los following</p>
       </div>
 
-
   </div>
-  
+
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="./src/scripts/recipe-planet.js"></script>
