@@ -77,15 +77,21 @@ const updateUserFollowing = (req, res) => {
 
 
 const getUserImg = (req, res) => {
-  const { refImg } = req.params
+  const { id } = req.params
 
+  User.findById(id)
+    .then(res => res.json(res.img))
+    .catch(err => handdleError(err, res))
 }
 
 const updateUserImg = (req, res) => {
   const { id } = req.params
+  const { img } = req.body
 
+  User.findByIdAndUpdate({_id: id}, {img}, {new: true})
+    .then(user => res.json(user))
+    .catch(err => handdleError(err, res))
 }
-
 
 const deleteUserRecipe = (req, res) => {
   const userId = req.params.id;

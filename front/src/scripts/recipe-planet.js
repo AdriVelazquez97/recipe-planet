@@ -31,7 +31,22 @@ const updateUserInfo = async (id, newData) => {
 }
 
 const getUserImg = async (id) => {
-  return api.get(`users/${id}/img`)
+  return api.get(`users/${id}/image`)
+}
+
+const updateUserImg = async (id, img) => {
+  return api.put(`users/${id}/image`, {img})
+}
+
+const createDivRecipe = (recipe, divUserRecipes) => {
+  const pTitle = document.createElement('P');
+  const pDescription = document.createElement('P');
+  const textTitle = document.createTextNode(recipe.name);
+  const textDescription = document.createTextNode(recipe.description);
+  pTitle.appendChild(textTitle)
+  pDescription.appendChild(textDescription)
+  divUserRecipes.appendChild(pTitle)
+  divUserRecipes.appendChild(pDescription)
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -45,16 +60,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const userDataParse = userDataNoParse.data[0]
 
   const userRecipes = await getUserRecipes(userDataParse._id)
-
+  imgUserImg.setAttribute('src', userDataParse.img)
   userRecipes.data.forEach(recipe => {
-    const pTitle = document.createElement('P');
-    const pDescription = document.createElement('P');
-    const textTitle = document.createTextNode(recipe.name);
-    const textDescription = document.createTextNode(recipe.description);
-    pTitle.appendChild(textTitle)
-    pDescription.appendChild(textDescription)
-    divUserRecipes.appendChild(pTitle)
-    divUserRecipes.appendChild(pDescription)
+    createDivRecipe(recipe, divUserRecipes)
   });
 
   inputUserName.setAttribute('value', userDataParse.name)
@@ -66,7 +74,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       cloudName: 'ddhio8g1j', 
       uploadPreset: 'pgtjohuw'}, (error, result) => { 
         if (!error && result && result.event === "success") { 
-          console.log('Done! Here is the image info: ', result.info); 
+          // Continuar aqui, axios para actualizar la foto del usuario 
+          const newUrl = result.info.url
+          console.log(newUrl)
+          updateUserImg(userDataParse._id, newUrl)
         }
       }
     )
@@ -74,24 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     myWidget.open();
  
   }, false)
-
-  // this is the navigation
-  document.getElementById('btn-home').addEventListener('click', (event) => {
-    location.href = './home.html'
-  })
-  document.getElementById('btn-profile').addEventListener('click', (event) => {
-    location.href = './profile.html'
-  })
-  document.getElementById('btn-following').addEventListener('click', (event) => {
-    location.href = './following.html'
-  })
-  document.getElementById('btn-logout').addEventListener('click', (event) => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    location.href = './index.html'
-  })
-  // ------------------
 
   document.getElementById('btn-edit').addEventListener('click', (event) => {
     const inputUserName = document.getElementById('userName')

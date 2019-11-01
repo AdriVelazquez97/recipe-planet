@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./src/css/recipe-planet.css">
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  
+  <div id="navbar">
+    <button id="btn-home"  type="button" data-page="homePage">Home</button>
+    <button id="btn-profile"  type="button" data-page="profilePage">Profile</button>
+    <button id="btn-following"  type="button" data-page="followingPage">Following</button>
+    <button id="btn-logout"  type="button" data-page="">Log out</button>
+  </div>
+
+  <div id="container">
+    
+    <div id="profilePage" style="display: none;">
+        <label for="">Img: </label>
+        <img id="userImg" alt="">
+        <button id="btn-save-img"  type="button">Save IMG</button>
+    
+        <label for="">Name: </label>
+        <input type="text" id="userName" readonly>
+    
+        <label for="">Recipes: </label>
+        <div id="userRecipes"></div>
+    
+        <label for="">Following: <span id="userFollowing">0</span></label>
+        
+        <button id="btn-edit"  type="button">Edit</button>
+      </div>
+    
+      <div id="homePage">
+        <p>Esta es la pagina del home</p>
+      </div>
+
+      <div id="followingPage" style="display: none;">
+        <p>Esta es la pagina de los following</p>
+      </div>
+
+
+  </div>
+  
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <script src="./src/scripts/recipe-planet.js"></script>
+  <script src="./src/scripts/navbar.js"></script>
+
+
+</body>
+</html>
