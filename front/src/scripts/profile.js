@@ -4,40 +4,6 @@
   }
 })()
 
-const api = axios.create({
-  baseURL: "http://localhost:5000/api/",
-  timeout: 1000,
-  headers: {
-    auth_token: localStorage.getItem('token')
-  }
-});
-
-const getUserData = async () => {
-  const requestBody = {
-    searchParams: [{
-      type: 'email',
-      value: [localStorage.getItem('email')]
-    }]
-  }
-  return api.post('users/searchWithFilters', requestBody)
-}
-
-const getUserRecipes = async (id) => {
-  return api.get(`users/${id}/recipes`)
-}
-
-const updateUserInfo = async (id, newData) => {
-  return api.put(`users/${id}`, newData)
-}
-
-const getUserImg = async (id) => {
-  return api.get(`users/${id}/image`)
-}
-
-const updateUserImg = async (id, img) => {
-  return api.put(`users/${id}/image`, {img})
-}
-
 const createDivRecipe = (recipe, divUserRecipes) => {
   const pTitle = document.createElement('P');
   const pDescription = document.createElement('P');
@@ -55,14 +21,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const divUserRecipes = document.getElementById('userRecipes')
   const inputUserFollowing = document.getElementById('userFollowing')
   
-  const userDataNoParse = await getUserData()
+  const userDataNoParse = await api.getUserData()
   const userDataParse = userDataNoParse.data[0]
   
   
-  const imgUserImg = document.getElementById('img')
-  imgUserImg.style.backgroundImage = `url(${userDataParse.img})`
+  const userImg = document.getElementById('userImg')
+  userImg.style.backgroundImage = `url(${userDataParse.img})`
   
-  const userRecipes = await getUserRecipes(userDataParse._id)
+  const userRecipes = await api.getUserRecipes(userDataParse._id)
   userRecipes.data.forEach(recipe => {
     createDivRecipe(recipe, divUserRecipes)
   });
@@ -70,22 +36,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   inputUserName.setAttribute('value', userDataParse.name)
   inputUserFollowing.innerHTML = userDataParse.following.length
 
-  imgUserImg.addEventListener('click', (event) => {
-
+  userImg.addEventListener('click', (event) => {
     var myWidget = cloudinary.createUploadWidget({
       cloudName: 'ddhio8g1j', 
       uploadPreset: 'pgtjohuw'}, (error, result) => { 
         if (!error && result && result.event === "success" ) {
-            const newUrl = result.info.url
-            updateUserImg(userDataParse._id, newUrl)
-            imgUserImg.style.backgroundImage = `url(${newUrl})`
-          
+          const newUrl = result.info.url
+          api.updateUserImg(userDataParse._id, newUrl)
+          userImg.style.backgroundImage = `url(${newUrl})`
         }
       }
     )
 
     myWidget.open();
- 
   }, false)
 
   document.getElementById('btn-edit').addEventListener('click', (event) => {
@@ -97,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       btnEdit.innerHTML = 'Save'
     } else {
       const newName = inputUserName.value
-      updateUserInfo(userDataParse._id, { name: newName })
+      api.updateUserInfo(userDataParse._id, { name: newName })
       inputUserName.setAttribute('readonly', '')
       btnEdit.innerHTML = 'Edit'
     }

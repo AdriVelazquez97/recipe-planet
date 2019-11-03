@@ -4,7 +4,7 @@
   margin-top: 10px;
 }
 
-#profilePage{
+#profilePage > *{
   display: block;
 }
 
@@ -15,14 +15,20 @@
   top:0;
   left: 0;
   background-color: blue;
- }
+}
 
-#img{
+#userRecipes{
+  width: 80vw;
+  /* height: 50vh; */
+  border: 1px solid black
+}
+
+#userImg{
   width: 200px;
   height: 200px;
   background-size:cover
 }
 
-#img:hover{
+#userImg:hover{
   opacity: 0.5;
 }

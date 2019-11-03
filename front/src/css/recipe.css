@@ -1,0 +1,14 @@
+#newRecipePage > * {
+  display: block;
+}
+
+#recipeImg{
+  width: 200px;
+  height: 200px;
+  background-size:cover;
+  background-image: url('../img/add.png');
+}
+
+#recipeImg:hover{
+  opacity: 0.5;
+}

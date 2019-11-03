@@ -14,8 +14,7 @@ const recipeSchema = new mongoose.Schema({
     food: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Food'
-    }],
-    text: String,
+    }]
   }],
   steps: {
     type: String,

@@ -2,11 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const homePage = document.getElementById('homePage')
   const profilePage = document.getElementById('profilePage')
   const followingPage = document.getElementById('followingPage')
+  const newRecipePage = document.getElementById('newRecipePage')
   
+  const arrayOfPages = [
+    homePage,
+    profilePage,
+    followingPage,
+    newRecipePage
+  ]
+
   function hideAllPages(current){
     homePage.style.display = 'none'
     profilePage.style.display = 'none'
     followingPage.style.display = 'none'
+    newRecipePage.style.display = 'none'
     current.style.display = ''
   }
   
@@ -18,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   document.getElementById('btn-following').addEventListener('click', (event) => {
     hideAllPages(followingPage);
+  })
+  document.getElementById('btn-new-recipe').addEventListener('click', (event) => {
+    hideAllPages(newRecipePage);
   })
 
   document.getElementById('btn-logout').addEventListener('click', (event) => {
