@@ -3,13 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const profilePage = document.getElementById('profilePage')
   const followingPage = document.getElementById('followingPage')
   const newRecipePage = document.getElementById('newRecipePage')
-  
-  const arrayOfPages = [
-    homePage,
-    profilePage,
-    followingPage,
-    newRecipePage
-  ]
 
   function hideAllPages(current){
     homePage.style.display = 'none'

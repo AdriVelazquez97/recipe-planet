@@ -10,7 +10,7 @@ function Api () {
 
   // AUTH API
 
-  this.login = async (logUser) => {
+  this.login = (logUser) => {
     return this.api
       .post("auth/login", logUser)
       .then(response => {
@@ -26,7 +26,7 @@ function Api () {
 
   // USER API
 
-  this.getUserData = async () => {
+  this.getUserData = () => {
     const requestBody = {
       searchParams: [{
         type: 'email',
@@ -36,23 +36,42 @@ function Api () {
     return this.api.post('users/searchWithFilters', requestBody)
   }
 
-  this.getUserRecipes = async (id) => {
+  this.getUserRecipes = (id) => {
     return this.api.get(`users/${id}/recipes`)
   }
 
-  this.updateUserInfo = async (id, newData) => {
+  this.updateUserInfo = (id, newData) => {
     return this.api.put(`users/${id}`, newData)
   }
 
-  this.getUserImg = async (id) => {
+  this.getUserImg = (id) => {
     return this.api.get(`users/${id}/image`)
   }
 
-  this.updateUserImg = async (id, img) => {
+  this.updateUserImg = (id, img) => {
     return this.api.put(`users/${id}/image`, {img})
   }
 
+  this.updateUserRecipe = (idUser, idRecipe) => {
+    return this.api.put(`users/${idUser}/recipes`,
+      {recipe: idRecipe})
+  }
+
   // RECIPE API
+  
+  this.createRecipe = (idUser, newRecipe) => {
+    return this.api.post(`recipes/`, newRecipe)
+      .then(recipe => {
+        let recipeId = recipe.data.recipe._id
+        this.updateUserRecipe(idUser, recipeId)
+      })
+  }
+
+  // INGREDIENTS
+
+  this.getAllFoods = (id, img) => {
+    return this.api.get(`foods/`)
+  }
 
 }
 

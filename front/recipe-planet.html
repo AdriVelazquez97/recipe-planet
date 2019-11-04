@@ -7,6 +7,8 @@
   <title>Document</title>
   <link rel="stylesheet" href="./src/css/profile.css">
   <link rel="stylesheet" href="./src/css/recipe.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 </head>
 <body>
@@ -47,46 +49,44 @@
       <!-- img name description ingredents steps  -->
       <div id="recipeImg"></div>
       <label for="">Name: </label>
-      <input type="text" id="userName">
+      <input type="text" id="recipeName">
       <hr>
       <label for="">Description: </label>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <textarea name="" id="recipeDescription" cols="30" rows="10"></textarea>
       <hr>
-      <label for="">Ingredents: </label>
-      <ul id="ulIngredents">
-        <li class="inputIngredent">
-          <input type="text">
-        </li>
-      </ul>
-      <button id="btn-add-ingredent" type="button">Add Ingredent</button>
-      <button id="btn-delete-ingredent" type="button">Delete Ingredent</button>
+
+      <div id="wrapperIngredients">
+        <label for="">Ingredients: </label>
+        <ul id="ulIngredients"></ul>
+        <button id="btn-add-ingredient" type="button">Add Ingredient</button>
+        <button id="btn-delete-ingredient" type="button">Delete Ingredient</button>
+      </div>
       <hr>
-      <label for="">Steps: </label>      
-      <ul id="ulSteps">
-        <li class="inputStep">
-          <input type="text">
-        </li>
-      </ul>
-      <button id="btn-add-step" type="button">Add Step</button>
-      <button id="btn-delete-step" type="button">Delete Step</button>
+      <div class="warpperSteps">
+        <label for="">Steps: </label>      
+        <ul id="ulSteps"></ul>
+        <button id="btn-add-step" type="button">Add Step</button>
+        <button id="btn-delete-step" type="button">Delete Step</button>
+      </div>
       <hr>
       <button id="btn-cretae-recipe" type="button">Add Recipe</button>
     </div>
 
-    
-
-    <!-- This will show following page -->
     <div id="followingPage" style="display: none">
-      <p>Esta es la pagina de los following</p>
+      <p>Esta es la pagina que muestra la gente que sigues</p>
     </div>
+
+
 
   </div>
 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="./src/scripts/api.js"></script>
-  <script src="./src/scripts/recipe.js"></script>
   <script src="./src/scripts/profile.js"></script>
+  <script src="./src/scripts/recipe.js"></script>
   <script src="./src/scripts/navbar.js"></script>
 
 

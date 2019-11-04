@@ -9,15 +9,13 @@ const recipeSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  ingredents: [{
+  ingredients: [{
     type: Object,
-    food: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Food'
-    }]
+    cuantity: String,
+    food: String
   }],
   steps: {
-    type: String,
+    type: Array,
   },
   img: {
     type: String,

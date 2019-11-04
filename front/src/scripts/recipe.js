@@ -1,26 +1,77 @@
-
 const createLiInput = (inputClass) => {
   const li = document.createElement('li')
-  const input = document.createElement("INPUT");
+  const input = document.createElement("input");
   input.setAttribute("type", "text");
   li.setAttribute('class', inputClass);
   li.appendChild(input);
   return li
 }
 
+const createInputAndSelect = (countIngredients) => {
+  const li = createLiInput('inputIngredient')
+  const input = document.createElement('input')
+  input.setAttribute('id', `ingredient${countIngredients}` )
+  li.appendChild(input)
+  return li
+}
 
-document.addEventListener("DOMContentLoaded", function () {
+const takeIngredientsValue = () => {
+  const ingredientsValues = document.querySelectorAll('.inputIngredient > input ')
+  let arrayOfIngredients = []
+
+  for(let i = 0; i < ingredientsValues.length; i++){
+    if(ingredientsValues[i].value.length > 0 && ingredientsValues[i].value.length > 0){
+      let newObjectIngredient = {
+        cuantity: ingredientsValues[i].value,
+        food: ingredientsValues[i+1].value
+      }
+      arrayOfIngredients.push(newObjectIngredient)
+      i++
+    }
+  }
+  return arrayOfIngredients
+}
+
+const takeStepsValue = () => {
+  const stepsValues = document.querySelectorAll('.inputStep > input ')
+  const arrayOfValues = [];
+  for (let i = 0; i < stepsValues.length; i++) {
+    arrayOfValues.push(stepsValues[i].value);
+  }
+  return arrayOfValues
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
 
   const recipeImg = document.getElementById('recipeImg')
-  const ulIngredents = document.getElementById('ulIngredents')
+  const ulIngredents = document.getElementById('ulIngredients')
   const ulSteps = document.getElementById('ulSteps')
+  let newRecipe = {}
+  let countIngredients = 0
 
-  document.getElementById('btn-add-ingredent').addEventListener('click', (event) => {
-    ulIngredents.appendChild(createLiInput('inputIngredent'))
+  const ingredients = await api.getAllFoods()
+  const ingredientsNames = ingredients.data.map(ingredient => ingredient.name)
+  
+  const newChild = createInputAndSelect(countIngredients)
+  ulIngredents.appendChild(newChild)
+  $(`#${newChild.children[1].id}`).autocomplete({
+    source: ingredientsNames
+  });
+  ulSteps.appendChild(createLiInput('inputStep'))
+
+
+  document.getElementById('btn-add-ingredient').addEventListener('click', (event) => {
+    countIngredients++
+    const newChild = createInputAndSelect(countIngredients)
+    ulIngredents.appendChild(newChild)
+    $(`#${newChild.children[1].id}`).autocomplete({
+      source: ingredientsNames
+    });
   })
   
-  document.getElementById('btn-delete-ingredent').addEventListener('click', (event) => {
+  document.getElementById('btn-delete-ingredient').addEventListener('click', (event) => {
     ulIngredents.removeChild(ulIngredents.lastElementChild)
+    countIngredients--
   })
 
   document.getElementById('btn-add-step').addEventListener('click', (event) => {
@@ -37,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
       uploadPreset: 'pgtjohuw'}, (error, result) => { 
         if (!error && result && result.event === "success" ) {
           const newUrl = result.info.url
-          recipeImg.style.backgroundImage = `url(${newUrl})` 
+          recipeImg.style.backgroundImage = `url(${newUrl})`
+          newRecipe.img = newUrl
         }
       }
     )
@@ -45,15 +97,20 @@ document.addEventListener("DOMContentLoaded", function () {
     myWidget.open();
   }, false)
 
-  document.getElementById('btn-cretae-recipe').addEventListener('click', (event) => {
-    const listOfIngredents = document.getElementById('ulIngredents')
-    console.log(listOfIngredents.childNodes)
-    // const arrayOfIngredents = listOfIngredents.map(ingredent => {
-    //   return ingredent.value 
-    // })
+  document.getElementById('btn-cretae-recipe').addEventListener('click', async () => {
+    newRecipe.name = document.getElementById('recipeName').value
+    newRecipe.description = document.getElementById('recipeDescription').value
+    newRecipe.ingredients = takeIngredientsValue()
+    newRecipe.steps = takeStepsValue()
+    newRecipe.owner = localStorage.getItem('id')
+  
+    await api.createRecipe(localStorage.getItem('id'), newRecipe)
 
-
-    // console.log(arrayOfIngredents)
+    const divUserRecipes = document.getElementById('userRecipes')
+    const userRecipes = await api.getUserRecipes(localStorage.getItem('id'))
+    userRecipes.data.forEach(recipe => {
+      createDivRecipe(recipe, divUserRecipes)
+    });
   })
 
 })
