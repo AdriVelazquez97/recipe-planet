@@ -104,13 +104,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     newRecipe.steps = takeStepsValue()
     newRecipe.owner = localStorage.getItem('id')
   
-    await api.createRecipe(localStorage.getItem('id'), newRecipe)
+    // await api.createRecipe(localStorage.getItem('id'), newRecipe)
 
+    const divUserRecipesNodes = document.getElementById('userRecipes').childNodes
+    const divUserRecipesLength = document.getElementById('userRecipes').childElementCount
+
+    for(let i = 0; i < divUserRecipesLength; i++){
+      document.getElementById('userRecipes').removeChild(divUserRecipesNodes[i])
+    }
+    // console.log(divUserRecipes)
     const divUserRecipes = document.getElementById('userRecipes')
     const userRecipes = await api.getUserRecipes(localStorage.getItem('id'))
     userRecipes.data.forEach(recipe => {
       createDivRecipe(recipe, divUserRecipes)
     });
+  
+    document.getElementById('recipeName').value = ""
+    document.getElementById('recipeDescription').value = ""
+    document.getElementById('recipeImg').style.backgroundImage = 'url(./src/img/add.png)';
+    
+    let done = false
+    let ingredientsLength = document.querySelectorAll('.inputIngredient > input ').length
+    let stepsLength = document.querySelectorAll('.inputStep > input ').length
+    while(!done){
+      if(ingredientsLength > 0) {
+        ulIngredents.removeChild(ulIngredents.lastElementChild)
+        ingredientsLength -= 2
+      }
+      
+      if(stepsLength > 0){
+        ulSteps.removeChild(ulSteps.lastElementChild)
+        stepsLength--
+      }
+
+      if(ingredientsLength === 0 && stepsLength === 0 ){
+        done = true
+      }
+    }
+
+    document.getElementById('newRecipePage').style.display = 'none'
+    document.getElementById('profilePage').style.display = ''
+    
+    const newChild = createInputAndSelect(countIngredients)
+    ulIngredents.appendChild(newChild)
+    $(`#${newChild.children[1].id}`).autocomplete({
+      source: ingredientsNames
+    });
+    ulSteps.appendChild(createLiInput('inputStep'))
+
+
   })
 
 })

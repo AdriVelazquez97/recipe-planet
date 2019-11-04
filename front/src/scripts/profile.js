@@ -4,15 +4,17 @@
   }
 })()
 
-const createDivRecipe = (recipe, divUserRecipes) => {
-  const pTitle = document.createElement('P');
-  const pDescription = document.createElement('P');
-  const textTitle = document.createTextNode(recipe.name);
-  const textDescription = document.createTextNode(recipe.description);
-  pTitle.appendChild(textTitle)
-  pDescription.appendChild(textDescription)
-  divUserRecipes.appendChild(pTitle)
-  divUserRecipes.appendChild(pDescription)
+const createDivRecipe = (recipe, divRecipes) => {
+  var recipeElem = document.createElement("div");
+    recipeElem.setAttribute('class', 'containerRecipe')
+    recipeElem.innerHTML = `
+    <img src="${recipe.img}" id="imgRecipe">
+    <div id="recipeInfo">
+      <p>${recipe.name}<p>
+      <p>${recipe.description}<p>
+    </div>`
+
+    divRecipes.appendChild(recipeElem)
 }
 
 document.addEventListener("DOMContentLoaded", async () => {

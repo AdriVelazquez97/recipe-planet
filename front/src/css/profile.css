@@ -4,6 +4,22 @@
   margin-top: 10px;
 }
 
+.containerRecipe{
+  height: 150px;
+  width: 300px;
+  display: flex;
+  margin: 5px;
+}
+
+#imgRecipe{
+  width: 150px;
+  height: 150px;
+}
+
+#recipeInfo{
+  margin-left: 20px
+}
+
 #profilePage > *{
   display: block;
 }
