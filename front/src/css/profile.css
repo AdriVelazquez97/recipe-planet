@@ -1,3 +1,42 @@
-.container > *{
+#container{
   display: block;
+  margin-left: 110px;
+  margin-top: 10px;
+  margin-right: 15px;
+}
+
+.containerRecipe{
+  height: 150px;
+}
+
+.card.card-adrian{
+  height: 398px;
+  width: 100px;
+  padding: 0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.card .adrian-image{
+  background-position: center center;
+  background-size: cover;
+  height: 250px;
+}
+
+#imgRecipe{
+  width: 150px;
+  height: 150px;
+}
+
+#recipeInfo{
+  margin-left: 20px
+}
+
+#userImg{
+  width: 200px;
+  height: 200px;
+  background-size:cover
+}
+
+#userImg:hover{
+  opacity: 0.5;
 }

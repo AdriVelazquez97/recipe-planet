@@ -19,12 +19,12 @@ const {
 router.get('/', getAllUsers);
 router.get('/:id/recipes', getUserRecipesById)
 router.get('/:id', getUserById);
-router.get('/:id/img', getUserImg);
+router.get('/:id/image', getUserImg);
 
 router.put('/:id', updateUser);
 router.put('/:id/recipes', updateUserRecipes);
 router.put('/:id/following', updateUserFollowing);
-router.put('/:id/image', upload.single('image'), updateUserImg)
+router.put('/:id/image', updateUserImg)
 
 router.post('/searchWithFilters', searchWithFilters)
 

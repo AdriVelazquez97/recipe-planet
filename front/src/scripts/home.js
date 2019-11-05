@@ -1,27 +1,25 @@
-(function authenticated () {
-  if (!localStorage.getItem('token')) {
-    location.href = './index.html'
-  }
-})()
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const recipeHome = document.getElementsByClassName('recipeHome')[0];
+  
+
+  const allrecipes = await api.getAllRecipes();
 
 
-document.addEventListener("DOMContentLoaded", function () {
+  allrecipes.data.forEach(recipe => {
 
-  document.getElementById('btn-home').addEventListener('click', (event) => {
-    location.href = './home.html'
-  })
-  document.getElementById('btn-profile').addEventListener('click', (event) => {
-    location.href = './profile.html'
-  })
-  document.getElementById('btn-following').addEventListener('click', (event) => {
-    location.href = './following.html'
-  })
-  document.getElementById('btn-logout').addEventListener('click', (event) => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    localStorage.removeItem("email");
-    location.href = './index.html'
-  })
+    var recipeElem = document.createElement("div");
+    recipeElem.setAttribute('class', 'containerRecipe col-3 mb-5 card card-adrian')
+    recipeElem.innerHTML = `<div>
+    <div class="card-img-top adrian-image" style="background-image: url('${recipe.img}')"></div>
+      <div class="card-body">
+        <h5 class="card-title">${recipe.name}</h5>
+        <p class="card-text text-truncate">${recipe.description}</p>
+      </div>
+    </div>`
 
+    recipeHome.appendChild(recipeElem)
+
+  });
 
 })

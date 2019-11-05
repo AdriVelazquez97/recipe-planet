@@ -1,0 +1,22 @@
+#newRecipePage > * {
+  display: block;
+}
+#newRecipePage, #showRecipe {
+  display: inline-block;
+  width: 66%;
+  margin: auto 0;
+  margin-left: calc(50% - 33%);
+}
+
+#recipeImg, #recipeImgShow{
+  width: 200px;
+  height: 200px;
+  background-size:cover;
+  background-image: url('../img/add.png');
+  margin-left: 240px
+}
+
+#recipeImg:hover{
+  opacity: 0.5;
+}
+
