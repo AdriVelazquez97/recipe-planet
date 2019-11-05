@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./src/css/profile.css">
   <link rel="stylesheet" href="./src/css/recipe.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+  <link rel="stylesheet" href="./src/css/navbar.css">
 
 </head>
 <body>
   
   <div id="navbar">
-    <button id="btn-home"  type="button" data-page="homePage">Home</button>
-    <button id="btn-profile"  type="button" data-page="profilePage">Profile</button>
-    <button id="btn-following"  type="button" data-page="followingPage">Following</button>
-    <button id="btn-logout"  type="button" data-page="">Log out</button>
+    <i class="fas fa-home icon" id="btn-home"></i>
+    <i class="fas fa-user icon" id="btn-profile"></i>
+    <i class="fas fa-sign-out-alt icon" id="btn-logout"></i>
   </div>
 
   <div id="container">
@@ -34,13 +34,11 @@
       <label for="">Name: </label>
       <input type="text" id="userName" readonly>
       <button id="btn-edit"  type="button">Edit</button>
-      <hr>
-      <label for="">Following: <span id="userFollowing">0</span></label>
+      <button id="btn-new-recipe" type="button">Add Recipe</button>
       <hr>
       <label for="">Recipes: </label>
-      <div id="userRecipes"></div>
+      <div id="userRecipes" class="row"></div>
       <hr>
-      <button id="btn-new-recipe" type="button">Add Recipe</button>
     </div>
 
     <!-- This will show new recipe page -->
@@ -48,47 +46,80 @@
       <p>Esta es la pagina para crear una nueva receta</p>
       <!-- img name description ingredents steps  -->
       <div id="recipeImg"></div>
-      <label for="">Name: </label>
-      <input type="text" id="recipeName">
+      <div class="form-group ">
+        <label>Name:</label>
+        <input type="email" class="form-control w200" id="recipeName" aria-describedby="recipeNameSmall" placeholder="Enter recipe name">
+      </div>
       <hr>
-      <label for="">Description: </label>
-      <textarea name="" id="recipeDescription" cols="30" rows="10"></textarea>
+      <div class="form-group ">
+        <label>Description:</label>
+        <textarea class="form-control" id="recipeDescription" cols="30" rows="10"></textarea>
+      </div>
       <hr>
-
       <div id="wrapperIngredients">
         <label for="">Ingredients: </label>
         <ul id="ulIngredients"></ul>
-        <button id="btn-add-ingredient" type="button">Add Ingredient</button>
-        <button id="btn-delete-ingredient" type="button">Delete Ingredient</button>
+        <button class="btn btn-primary" id="btn-add-ingredient" type="button">Add Ingredient</button>
+        <button class="btn btn-outline-danger" id="btn-delete-ingredient" type="button">Delete Ingredient</button>
       </div>
       <hr>
       <div class="warpperSteps">
         <label for="">Steps: </label>      
         <ul id="ulSteps"></ul>
-        <button id="btn-add-step" type="button">Add Step</button>
-        <button id="btn-delete-step" type="button">Delete Step</button>
+        <button class="btn btn-primary" id="btn-add-step" type="button">Add Step</button>
+        <button class="btn btn-outline-danger" id="btn-delete-step" type="button">Delete Step</button>
       </div>
       <hr>
-      <button id="btn-cretae-recipe" type="button">Add Recipe</button>
+      <button class="btn btn-primary" id="btn-cretae-recipe" type="button">Add Recipe</button>
     </div>
 
     <div id="followingPage" style="display: none">
       <p>Esta es la pagina que muestra la gente que sigues</p>
     </div>
 
+    <div id="showRecipe" style="display: none">
+      <div id="recipeImgShow"></div>
+      <div class="form-group ">
+        <label>Name:</label>
+        <input type="email" class="form-control w200" id="recipeNameShow" aria-describedby="recipeNameSmall" readonly>
+      </div>
+      <hr>
+      <div class="form-group ">
+        <label>Description:</label>
+        <textarea class="form-control" id="recipeDescriptionShow" cols="30" rows="10" readonly></textarea>
+      </div>
+      <hr>
+      <div id="wrapperIngredients">
+        <label for="">Ingredients: </label>
+        <ul id="ulIngredients"></ul>
+        <button class="btn btn-primary" id="btn-add-ingredient-show" type="button">Add Ingredient</button>
+        <button class="btn btn-outline-danger" id="btn-delete-ingredient-show" type="button">Delete Ingredient</button>
+      </div>
+      <hr>
+      <div class="warpperSteps">
+        <label for="">Steps: </label>      
+        <ul id="ulSteps"></ul>
+        <button class="btn btn-primary" id="btn-add-step-show" type="button">Add Step</button>
+        <button class="btn btn-outline-danger" id="btn-delete-step-show" type="button">Delete Step</button>
+      </div>
+      <hr>
+      <button class="btn btn-primary" id="btn-update-recipeshow" type="button">Add Recipe</button>
+    </div>
+
 
 
   </div>
 
+  <script src="https://kit.fontawesome.com/68f72947dd.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="./src/scripts/api.js"></script>
-  <script src="./src/scripts/profile.js"></script>
   <script src="./src/scripts/navbar.js"></script>
-  <script src="./src/scripts/recipe.js"></script>
-
+  <script src="./src/scripts/profile.js"></script>
+  <script src="./src/scripts/newRecipe.js"></script>
+  <script src="./src/scripts/showRecipe.js"></script>
 
 </body>
 </html>

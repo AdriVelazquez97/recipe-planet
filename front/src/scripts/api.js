@@ -67,6 +67,10 @@ function Api () {
       })
   }
 
+  this.getRecipeById = (recipeId) =>{
+    return this.api.get(`recipes/${recipeId}`)
+  }
+
   // INGREDIENTS
 
   this.getAllFoods = (id, img) => {

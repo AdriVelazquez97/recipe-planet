@@ -1,16 +1,20 @@
-const createLiInput = (inputClass) => {
+const createLiInput = (inputClass, placeholder='Introduce un paso') => {
   const li = document.createElement('li')
   const input = document.createElement("input");
   input.setAttribute("type", "text");
+  input.setAttribute("class", 'form-control');
+  input.setAttribute("placeholder", placeholder);
   li.setAttribute('class', inputClass);
   li.appendChild(input);
   return li
 }
 
 const createInputAndSelect = (countIngredients) => {
-  const li = createLiInput('inputIngredient')
+  const li = createLiInput('inputIngredient form-group', 'Introduce la cantidad')
   const input = document.createElement('input')
   input.setAttribute('id', `ingredient${countIngredients}` )
+  input.setAttribute("placeholder", 'Introduce el nombre del ingrediente');
+  input.setAttribute('class', `form-control` )
   li.appendChild(input)
   return li
 }
@@ -104,15 +108,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     newRecipe.steps = takeStepsValue()
     newRecipe.owner = localStorage.getItem('id')
   
-    // await api.createRecipe(localStorage.getItem('id'), newRecipe)
+    await api.createRecipe(localStorage.getItem('id'), newRecipe)
 
-    const divUserRecipesNodes = document.getElementById('userRecipes').childNodes
-    const divUserRecipesLength = document.getElementById('userRecipes').childElementCount
+    document.getElementById('userRecipes').innerHTML = ''
 
-    for(let i = 0; i < divUserRecipesLength; i++){
-      document.getElementById('userRecipes').removeChild(divUserRecipesNodes[i])
-    }
-    // console.log(divUserRecipes)
     const divUserRecipes = document.getElementById('userRecipes')
     const userRecipes = await api.getUserRecipes(localStorage.getItem('id'))
     userRecipes.data.forEach(recipe => {
@@ -122,25 +121,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('recipeName').value = ""
     document.getElementById('recipeDescription').value = ""
     document.getElementById('recipeImg').style.backgroundImage = 'url(./src/img/add.png)';
-    
-    let done = false
-    let ingredientsLength = document.querySelectorAll('.inputIngredient > input ').length
-    let stepsLength = document.querySelectorAll('.inputStep > input ').length
-    while(!done){
-      if(ingredientsLength > 0) {
-        ulIngredents.removeChild(ulIngredents.lastElementChild)
-        ingredientsLength -= 2
-      }
-      
-      if(stepsLength > 0){
-        ulSteps.removeChild(ulSteps.lastElementChild)
-        stepsLength--
-      }
 
-      if(ingredientsLength === 0 && stepsLength === 0 ){
-        done = true
-      }
-    }
+    ulIngredents.innerHTML = ''
+    ulSteps.innerHTML = ''
 
     document.getElementById('newRecipePage').style.display = 'none'
     document.getElementById('profilePage').style.display = ''

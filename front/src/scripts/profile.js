@@ -6,14 +6,30 @@
 
 const createDivRecipe = (recipe, divRecipes) => {
   var recipeElem = document.createElement("div");
-    recipeElem.setAttribute('class', 'containerRecipe')
-    recipeElem.innerHTML = `
-    <img src="${recipe.img}" id="imgRecipe">
-    <div id="recipeInfo">
-      <p>${recipe.name}<p>
-      <p>${recipe.description}<p>
-    </div>`
+    recipeElem.setAttribute('class', 'containerRecipe col-4 mb-5 card card-adrian')
+    recipeElem.innerHTML = `<div>
+    <div class="card-img-top adrian-image" style="background-image: url('${recipe.img}')"></div>
+    <div class="card-body">
+      <h5 class="card-title">${recipe.name}</h5>
+      <p class="card-text text-truncate">${recipe.description}</p>
+    </div>
+  </div>`
 
+
+  recipeElem.addEventListener('click', async () => {
+
+    document.getElementById('profilePage').style.display = 'none'
+    document.getElementById('showRecipe').style.display = ''
+    window.history.pushState('recipe-planet', 'Title', `/recipe-planet.html/${recipe._id}`);
+  
+
+    document.getElementById('recipeNameShow').value = recipe.name
+    document.getElementById('recipeDescriptionShow').value = recipe.description
+    console.log(recipe.img)
+    if(recipe.img !== undefined){
+      document.getElementById('recipeImgShow').style.backgroundImage = `url(${recipe.img})`
+    }
+  })
     divRecipes.appendChild(recipeElem)
 }
 

@@ -1,8 +1,14 @@
 #newRecipePage > * {
   display: block;
 }
+#newRecipePage, #showRecipe {
+  display: inline-block;
+  width: 66%;
+  margin: auto 0;
+  margin-left: calc(50% - 33%);
+}
 
-#recipeImg{
+#recipeImg, #recipeImgShow{
   width: 200px;
   height: 200px;
   background-size:cover;
@@ -12,3 +18,4 @@
 #recipeImg:hover{
   opacity: 0.5;
 }
+

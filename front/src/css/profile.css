@@ -1,14 +1,25 @@
 #container{
   display: block;
-  margin-left: 90px;
+  margin-left: 110px;
   margin-top: 10px;
+  margin-right: 15px;
 }
 
 .containerRecipe{
   height: 150px;
-  width: 300px;
-  display: flex;
-  margin: 5px;
+}
+
+.card.card-adrian{
+  height: 398px;
+  width: 100px;
+  padding: 0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.card .adrian-image{
+  background-position: center center;
+  background-size: cover;
+  height: 250px;
 }
 
 #imgRecipe{
@@ -18,25 +29,6 @@
 
 #recipeInfo{
   margin-left: 20px
-}
-
-#profilePage > *{
-  display: block;
-}
-
-#navbar {
-  position: fixed;
-  width: 80px;
-  height: 100vh;
-  top:0;
-  left: 0;
-  background-color: blue;
-}
-
-#userRecipes{
-  width: 80vw;
-  /* height: 50vh; */
-  border: 1px solid black
 }
 
 #userImg{
