@@ -71,6 +71,10 @@ function Api () {
     return this.api.get(`recipes/${recipeId}`)
   }
 
+  this.getAllRecipes = () => {
+    return this.api.get('recipes/')
+  }
+
   // INGREDIENTS
 
   this.getAllFoods = (id, img) => {

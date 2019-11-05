@@ -13,6 +13,7 @@
   height: 200px;
   background-size:cover;
   background-image: url('../img/add.png');
+  margin-left: 240px
 }
 
 #recipeImg:hover{

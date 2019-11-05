@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./src/css/profile.css">
   <link rel="stylesheet" href="./src/css/recipe.css">
   <link rel="stylesheet" href="./src/css/navbar.css">
+  <link rel="stylesheet" href="./src/css/home.css">
 
 </head>
 <body>
@@ -24,7 +25,11 @@
 
     <!-- This will show home page -->
     <div id="homePage">
-      <p>Esta es la pagina del home</p>
+      <div id="logoHomPage"></div>
+      <div class="row containerHome">
+        <div class="col-12 recipeHome"></div>
+      </div>
+      
     </div>
 
     <!-- This will show user's profile -->
@@ -43,8 +48,6 @@
 
     <!-- This will show new recipe page -->
     <div id="newRecipePage" style="display: none">
-      <p>Esta es la pagina para crear una nueva receta</p>
-      <!-- img name description ingredents steps  -->
       <div id="recipeImg"></div>
       <div class="form-group ">
         <label>Name:</label>
@@ -91,19 +94,14 @@
       <hr>
       <div id="wrapperIngredients">
         <label for="">Ingredients: </label>
-        <ul id="ulIngredients"></ul>
-        <button class="btn btn-primary" id="btn-add-ingredient-show" type="button">Add Ingredient</button>
-        <button class="btn btn-outline-danger" id="btn-delete-ingredient-show" type="button">Delete Ingredient</button>
+        <ul id="ulIngredientsShow"></ul>
       </div>
       <hr>
       <div class="warpperSteps">
         <label for="">Steps: </label>      
-        <ul id="ulSteps"></ul>
-        <button class="btn btn-primary" id="btn-add-step-show" type="button">Add Step</button>
-        <button class="btn btn-outline-danger" id="btn-delete-step-show" type="button">Delete Step</button>
+        <ul id="ulStepsShow"></ul>
       </div>
       <hr>
-      <button class="btn btn-primary" id="btn-update-recipeshow" type="button">Add Recipe</button>
     </div>
 
 
@@ -119,7 +117,8 @@
   <script src="./src/scripts/navbar.js"></script>
   <script src="./src/scripts/profile.js"></script>
   <script src="./src/scripts/newRecipe.js"></script>
-  <script src="./src/scripts/showRecipe.js"></script>
+  <script src="./src/scripts/home.js"></script>
+
 
 </body>
 </html>

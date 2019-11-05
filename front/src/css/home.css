@@ -1,0 +1,21 @@
+#logoHomPage{
+  height: 200px;
+  width: 400px;
+  background-image: url('../img/logoRecipePlanet.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 40px
+}
+
+.recipeHome{
+  width: 20px;
+  margin-right: 80px;
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipeSearch{
+  width: 20px;
+}
+

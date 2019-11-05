@@ -112,6 +112,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('userRecipes').innerHTML = ''
 
+    const recipeHome = document.getElementsByClassName('recipeHome')[0];
+    recipeHome.innerHTML = ''
+    const allRecipes = await api.getAllRecipes()
+    allRecipes.data.forEach(recipe => {
+      createDivRecipe(recipe, recipeHome)
+    });
+
     const divUserRecipes = document.getElementById('userRecipes')
     const userRecipes = await api.getUserRecipes(localStorage.getItem('id'))
     userRecipes.data.forEach(recipe => {
