@@ -31,6 +31,8 @@ const createDivRecipe = (recipe, divRecipes) => {
       document.getElementById('recipeImgShow').style.backgroundImage = "url('./src/img/add.png')" 
     }
 
+    document.getElementById('ulIngredientsShow').innerHTML = ''
+
     recipe.ingredients.forEach(ingredient => {
       const li = document.createElement('li')      
       const input = document.createElement('input')
@@ -53,6 +55,7 @@ const createDivRecipe = (recipe, divRecipes) => {
 
     })
 
+    document.getElementById('ulStepsShow').innerHTML = ''
 
     recipe.steps.forEach(step => {
       const input = document.createElement('input')

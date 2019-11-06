@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       } else {
         document.getElementById('recipeImgShow').style.backgroundImage = "url('./src/img/add.png')" 
       }
-  
+
+      document.getElementById('ulIngredientsShow').innerHTML = ''      
       recipe.ingredients.forEach(ingredient => {
         const li = document.createElement('li')      
         const input = document.createElement('input')
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       })
   
-  
+      document.getElementById('ulStepsShow').innerHTML = ''  
       recipe.steps.forEach(step => {
         const input = document.createElement('input')
         const li = document.createElement('li')

@@ -25,10 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
     api
       .post("auth/signup", newUser)
       .then((response) => {
+        console.log(response)
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("name",  response.data.userName);
         localStorage.setItem("email", response.data.email);
-        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("id", response.data._id);
         location.href = `./recipe-planet.html`
       })
       .catch(function (error) {

@@ -9,11 +9,12 @@
 }
 
 #recipeImg, #recipeImgShow{
-  width: 200px;
-  height: 200px;
-  background-size:cover;
+  width: 350px;
+  height: 250px;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-image: url('../img/add.png');
-  margin-left: 240px
+  margin: auto;
 }
 
 #recipeImg:hover{
