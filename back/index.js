@@ -19,7 +19,15 @@ app.use(morgan('combined'))
 app.use(express.json())
 
 // NONGOOSE
-mongoose.connect(config.mongoURL + config.mongoDBName)
+mongoose.set('debug', true);
+mongoose.connect(config.mongoURL + config.mongoDBName, {
+   useNewUrlParser: true,
+   useCreateIndex: true,
+   useUnifiedTopology: true
+  }, (err)=> {
+  if (err) { throw new Error(err) }
+  console.info('💾  Mongoose is connected')
+})
 
 // ROUTING
 const apiRouter = require('./app/routes')
